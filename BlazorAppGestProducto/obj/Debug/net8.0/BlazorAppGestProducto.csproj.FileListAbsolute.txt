@@ -129,3 +129,4 @@ C:\Users\dev\source\repos\BlazorAppGestProducto\BlazorAppGestProducto\obj\Debug\
 C:\Users\dev\source\repos\BlazorAppGestProducto\BlazorAppGestProducto\obj\Debug\net8.0\BlazorAppGestProducto.genruntimeconfig.cache
 C:\Users\dev\source\repos\BlazorAppGestProducto\BlazorAppGestProducto\obj\Debug\net8.0\ref\BlazorAppGestProducto.dll
 C:\Users\dev\source\repos\BlazorAppGestProducto\BlazorAppGestProducto\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\dev\source\repos\BlazorAppGestProducto\BlazorAppGestProducto\obj\Debug\net8.0\BlazorAppGestProducto.sourcelink.json
