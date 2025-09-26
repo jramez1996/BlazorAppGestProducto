@@ -1,0 +1,123 @@
+﻿@page "/"
+@using BlazorAppGestProducto.Models
+@using BlazorAppGestProducto.Servicios
+@inject IProductoService Repository
+
+@if (Producto is not null)
+{
+    <EditForm EditContext="editContext" Enhance="true" method="post" FormName="AddOrEditProductForm" OnValidSubmit="AddOrEditProducto" autocomplete="off">
+        <h3>@Title</h3>
+
+        <!-- Nombre del Producto -->
+        <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <InputText id="name" @bind-Value="Producto.Nombre" class="form-control shadow-none" />
+            <ValidationMessage For="@(() => Producto.Nombre)" />
+        </div>
+
+        <!-- Precio -->
+        <div class="mb-3">
+            <label for="price" class="form-label">Precio</label>
+            <InputNumber id="price" @bind-Value="Producto.Precio" class="form-control shadow-none" />
+            <ValidationMessage For="@(() => Producto.Precio)" />
+        </div>
+
+        <!-- Stock -->
+        <div class="mb-3">
+            <label for="stock" class="form-label">Stock</label>
+            <InputNumber id="stock" @bind-Value="Producto.Stock" class="form-control shadow-none" />
+            <ValidationMessage For="@(() => Producto.Stock)" />
+        </div>
+    
+        <!-- Botón de Envío -->
+        <div class="mb-3">
+            <button class="btn btn-primary shadow-none">Agregar</button>
+        </div>
+
+        <!-- Tabla de Productos -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Stock</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Productos)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Nombre</td>
+                        <td>@item.Precio</td>
+                        <td>@item.Stock</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- Validación -->
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+    </EditForm>
+}
+
+@code {
+    private EditContext editContext;
+
+    [Parameter]
+    public int ProductoId { get; set; }
+
+    [SupplyParameterFromForm]
+    public Producto? Producto { get; set; } = new Producto();
+
+    [Parameter]
+    public EventCallback<Producto> OnValidProductoSubmit { get; set; }
+
+    private string Title => "Agregar Producto";
+
+    // Lista de productos
+    private List<Producto> Productos { get; set; } = new List<Producto>();
+
+    // ID del producto seleccionado
+
+    protected override void OnInitialized()
+    {
+        // Si estamos en modo edición, obtenemos el producto desde el repositorio
+        Producto ??= new Producto(); // Si es nulo, creamos un producto vacío para agregarlo
+
+        // Inicializa el EditContext con el producto
+        editContext ??= new EditContext(Producto);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Obtener la lista de productos desde el repositorio
+        Productos = await Repository.GetProductos();
+    }
+
+    private async Task AddOrEditProducto()
+    {
+        if (Producto != null)
+        {
+            // Si el producto es nuevo, lo agregamos, si no, lo actualizamos
+            await Repository.AddProducto(Producto);  // Agregar producto
+
+            // Actualiza la lista de productos
+            Productos = await Repository.GetProductos();
+
+            // Invocar evento de éxito
+            await OnValidProductoSubmit.InvokeAsync(Producto);
+            ResetFormulario();
+        }
+    }
+    private void ResetFormulario()
+    {
+        Producto = new Producto();  // Crea un nuevo producto vacío
+        editContext = new EditContext(Producto);  // Asocia el nuevo Producto con un EditContext
+    }
+
+
+
+}
