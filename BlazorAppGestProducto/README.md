@@ -1,18 +1,18 @@
-# Gestión de Productos - Blazor .NET 6.0+
+# Gestiï¿½n de Productos - Blazor .NET 6.0+
 
-## Descripción
-Este proyecto es una aplicación mínima construida con Blazor en .NET 6.0+. Permite gestionar productos, mostrando una lista de productos y permitiendo la inserción de nuevos productos.
+## Descripciï¿½n
+Este proyecto es una aplicaciï¿½n mï¿½nima construida con Blazor en .NET 6.0+. Permite gestionar productos, mostrando una lista de productos y permitiendo la inserciï¿½n de nuevos productos.
 
 ## Requisitos
 - .NET 6.0 o superior
 - MongoDB para persistencia de datos
 - Un servidor SQL para ejecutar el script de consulta de productos
 
-## Instrucciones para ejecutar la aplicación
+## Instrucciones para ejecutar la aplicaciï¿½n
 
 ### Paso 1: Clonar el repositorio
-Clona este repositorio en tu máquina local.
+Clona este repositorio en tu mï¿½quina local.
 
 ```bash
-git clone <url-del-repositorio>
-cd <directorio-del-proyecto>
+git clone https://github.com/jramez1996/BlazorAppGestProducto.git
+cd BlazorAppGestProducto
